@@ -1,0 +1,16 @@
+from collections import defaultdict
+
+class Solution:
+    def subarraysDivByK(self, nums, k):
+        count = 0
+        prefixSum = 0
+        modCount = defaultdict(int)
+        modCount[0] = 1  # base case: prefixSum 0 has been seen once
+
+        for num in nums:
+            prefixSum += num
+            mod = (prefixSum % k + k) % k  # normalize to positive modulo
+            count += modCount[mod]
+            modCount[mod] += 1
+
+        return count
