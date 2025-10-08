@@ -1,0 +1,22 @@
+class Solution:
+    def maximumPopulation(self, logs):
+        # Create an array to track population changes from 1950 to 2050
+        year_changes = [0] * 101  # Index 0 corresponds to 1950
+
+        # Apply difference array technique
+        for birth, death in logs:
+            year_changes[birth - 1950] += 1
+            year_changes[death - 1950] -= 1
+
+        # Calculate prefix sum and track max population and year
+        max_population = 0
+        current_population = 0
+        earliest_year = 1950
+
+        for i in range(101):  # Years from 1950 to 2050
+            current_population += year_changes[i]
+            if current_population > max_population:
+                max_population = current_population
+                earliest_year = 1950 + i  # Convert index back to year
+
+        return earliest_year
