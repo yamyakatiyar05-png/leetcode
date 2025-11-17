@@ -1,0 +1,18 @@
+int peakIndexInMountainArray(int* arr, int arrSize) {
+    int left = 0;
+    int right = arrSize - 1;
+
+    while (left < right) {
+        int mid = left + (right - left) / 2;
+
+        if (arr[mid] < arr[mid + 1]) {
+            // Peak is on the right side
+            left = mid + 1;
+        } else {
+            // Peak is on the left side or mid itself
+            right = mid;
+        }
+    }
+
+    return left; // left == right is the peak index
+}
